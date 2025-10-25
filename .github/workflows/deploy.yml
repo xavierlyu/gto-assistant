@@ -23,15 +23,21 @@ jobs:
         with:
           node-version: "20"
           cache: "yarn"
+          cache-dependency-path: frontend/yarn.lock
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: |
+          cd frontend
+          yarn install --frozen-lockfile
 
       - name: Build
-        run: yarn build
+        run: |
+          cd frontend
+          yarn build
 
       - name: Add .nojekyll and CNAME files
         run: |
+          cd frontend
           touch out/.nojekyll
           echo "rangewater.tech" > out/CNAME
 
@@ -40,5 +46,5 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out
+          publish_dir: ./frontend/out
           force_orphan: true
