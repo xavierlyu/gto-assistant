@@ -2,6 +2,7 @@
   "name": "gto-assistant",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://rangewater.tech",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
