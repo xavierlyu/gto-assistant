@@ -30,8 +30,10 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Add .nojekyll file
-        run: touch out/.nojekyll
+      - name: Add .nojekyll and CNAME files
+        run: |
+          touch out/.nojekyll
+          echo "rangewater.tech" > out/CNAME
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
