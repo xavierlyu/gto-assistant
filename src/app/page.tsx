@@ -1,30 +1,31 @@
-'use client';
+"use client";
 
-import { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, Loader2 } from 'lucide-react';
+import { useState, useRef, useEffect } from "react";
+import { Send, Bot, User, Loader2 } from "lucide-react";
 
 interface Message {
   id: string;
   content: string;
-  role: 'user' | 'assistant';
+  role: "user" | "assistant";
   timestamp: Date;
 }
 
 export default function Home() {
   const [messages, setMessages] = useState<Message[]>([
     {
-      id: '1',
-      content: 'Hello! I\'m your GTO Assistant. Describe a poker hand history and I\'ll help you analyze it and find the optimal strategy.',
-      role: 'assistant',
+      id: "1",
+      content:
+        "Hello! I'm your GTO Assistant. Describe a poker hand history and I'll help you analyze it and find the optimal strategy.",
+      role: "assistant",
       timestamp: new Date(),
     },
   ]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -38,12 +39,12 @@ export default function Home() {
     const userMessage: Message = {
       id: Date.now().toString(),
       content: input,
-      role: 'user',
+      role: "user",
       timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
-    setInput('');
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
     setIsLoading(true);
 
     // Simulate API call
@@ -51,11 +52,11 @@ export default function Home() {
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         content: `I've analyzed your hand: "${userMessage.content}"\n\n**Parsed Parameters:**\n- Game Type: 6-max Cash\n- Stack Depth: 100BB\n- Preflop Actions: R3, C\n- Stacks: 100, 100\n\n**GTO Analysis:**\n- UTG should raise 3x with 15% of hands\n- BB should call with 25% of hands\n- Optimal strategy depends on position and stack depth\n\nWould you like me to fetch the detailed GTO solution from the database?`,
-        role: 'assistant',
+        role: "assistant",
         timestamp: new Date(),
       };
-      
-      setMessages(prev => [...prev, assistantMessage]);
+
+      setMessages((prev) => [...prev, assistantMessage]);
       setIsLoading(false);
     }, 1500);
   };
@@ -65,9 +66,7 @@ export default function Home() {
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">
-            GTO Assistant
-          </h1>
+          <h1 className="text-4xl font-bold text-white mb-2">GTO Assistant</h1>
           <p className="text-slate-300 text-lg">
             AI-powered poker hand analysis and GTO solution finder
           </p>
@@ -81,20 +80,20 @@ export default function Home() {
               <div
                 key={message.id}
                 className={`flex items-start space-x-3 ${
-                  message.role === 'user' ? 'justify-end' : 'justify-start'
+                  message.role === "user" ? "justify-end" : "justify-start"
                 }`}
               >
-                {message.role === 'assistant' && (
+                {message.role === "assistant" && (
                   <div className="flex-shrink-0 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
                     <Bot className="w-5 h-5 text-white" />
                   </div>
                 )}
-                
+
                 <div
                   className={`max-w-xs lg:max-w-md px-4 py-3 rounded-2xl ${
-                    message.role === 'user'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-slate-700/50 text-slate-200'
+                    message.role === "user"
+                      ? "bg-blue-600 text-white"
+                      : "bg-slate-700/50 text-slate-200"
                   }`}
                 >
                   <div className="whitespace-pre-wrap text-sm leading-relaxed">
@@ -105,14 +104,14 @@ export default function Home() {
                   </div>
                 </div>
 
-                {message.role === 'user' && (
+                {message.role === "user" && (
                   <div className="flex-shrink-0 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
                     <User className="w-5 h-5 text-white" />
                   </div>
                 )}
               </div>
             ))}
-            
+
             {isLoading && (
               <div className="flex items-start space-x-3">
                 <div className="flex-shrink-0 w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
@@ -126,7 +125,7 @@ export default function Home() {
                 </div>
               </div>
             )}
-            
+
             <div ref={messagesEndRef} />
           </div>
 
